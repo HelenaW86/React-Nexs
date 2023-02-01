@@ -1,3 +1,5 @@
+import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -11,16 +13,34 @@ export default function Pockemons() {
         setData(data);
       });
   }, []);
-  console.log(data);
   return (
-    // <h1>Pockemons!</h1>
-    data?.results?.map((pockemon) => {
-      return (
-        <div>
-          <p>{pockemon?.name}</p>
-          <Link href={`/pockemons/${pockemon?.name}`} passHref>{pockemon?.name}</Link>
-        </div>
-      );
-    })
+    <>
+      <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
+      <div>
+        <Image
+          src="/pokemon.png"
+          alt="pockemon"
+          width={390}
+          height={180}
+          priority
+        />
+      </div>
+      {data?.results?.map((pockemon) => {
+        return (
+          <Link href={`/pockemons/${pockemon?.name}`} passHref>
+            <div className="name-card" key={pockemon?.name}>
+              {pockemon?.name}
+            </div>
+          </Link>
+        );
+      })}
+    </>
   );
 }
